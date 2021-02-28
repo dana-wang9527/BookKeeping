@@ -1,5 +1,9 @@
 <template>
-  <div>labels</div>
+  <div>
+    <Layout>
+      <p>labels</p>
+    </Layout>
+  </div>
 </template>
 
 <script lang="ts">
