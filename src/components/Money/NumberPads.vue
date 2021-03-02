@@ -27,10 +27,11 @@ import {Component} from 'vue-property-decorator';
 
 @Component
 export default class NumberPads extends Vue {
-  output = '';
+  output = '0';
 
-  inputContent(event) {
-    const input = event.target.textContent;
+  inputContent(event: MouseEvent) {
+    const button = (event.target as HTMLButtonElement);
+    const input = button.textContent as string;
     if (this.output.length === 16) return;
     if (this.output === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
@@ -53,10 +54,14 @@ export default class NumberPads extends Vue {
   }
 
   clear() {
-    this.output = 0;
+    this.output = '0';
   }
-
-  ok
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+  ok() {
+    this.$emit('update:value', this.output);
+    this.$emit('submit', this.output);
+    this.output = '0';
+  }
 
 }
 </script>

@@ -17,17 +17,17 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  type = '-';//       type: '-' //当是‘-’表示支出，当是‘+’表示收入
-  @Prop([String, Boolean]) xxx: string | boolean | undefined;
+
+  @Prop(String) readonly type!: string; //！表示不用管我有没有初始值
 //Prop告诉vue xxx不是data是props
-  // String,  Boolean告诉vue xxx是运行时String,  Boolean
+  // String告诉vue type是运行时String
   //xxx属性名
-  //string | boolean | undefined告诉TS xxx的类型
-  selectorType(type) {
-    if (type !== '-' && type !== '+') { //type只能是‘-’或者‘+’
+  //string | undefined告诉TS xxx的类型
+  selectorType(type: string) {
+    if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.type = type;
+    this.$emit('update:value',type)
   }
 }
 
