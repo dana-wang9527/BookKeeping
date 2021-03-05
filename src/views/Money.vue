@@ -8,7 +8,6 @@
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
-
 <script lang="ts">
 import Vue from 'vue';
 import Tags from '@/components/Money/Tags.vue';
