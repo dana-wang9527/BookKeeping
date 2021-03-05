@@ -1,13 +1,23 @@
 <template>
-  <Layout>编辑标签</Layout>
+  <Layout>
+    <div>
+      <Icon name="left"/>
+      <span>
+      编辑标签
+      </span>
+    </div>
+<Notes field-name="标签" placeholder="请输入标签"/>
+  </Layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListsModel from '@/models/tagList';
-
-@Component
+import Notes from '@/components/Money/Notes.vue';
+@Component({
+  components: {Notes}
+})
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id; //route获取信息

@@ -2,7 +2,7 @@
   <Layout class-prefix="Layout"><!--    给组件传想要的类-->
     <NumberPads @submit="saveRecode" @update:value="updateNumber"/>
     <Types :type.sync="recode.type"/>
-    <Notes @update:value="updateNotes"/>
+    <Notes field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
