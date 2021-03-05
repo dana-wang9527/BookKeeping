@@ -1,3 +1,5 @@
+import createId from '@/lib/idCreator';
+
 const localStorageKeyName = 'tagLists';
 
 type Tag = {
@@ -20,12 +22,14 @@ const tagListsModel: TagListModel = {
         this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
         return this.data;
     },
+
     create(name: string) {
         const names = this.data.map(item => item.name);
         if (names.indexOf(name) >= 0) {
             return 'duplicated';
         }
-        this.data.push({id: name, name: name});
+        const id=createId().toString();
+        this.data.push({id: id, name: name});
         this.save();
         return 'success';
     },
