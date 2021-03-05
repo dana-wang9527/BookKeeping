@@ -5,9 +5,22 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import tagListsModel from '@/models/tagList';
 
 @Component
 export default class EditLabel extends Vue {
+  created() {
+    const id = this.$route.params.id; //route获取信息
+    tagListsModel.fetch();
+    const tags = tagListsModel.data;
+    const tag = tags.filter(t => t.id === id)[0];
+    if (tag) {
+      console.log(tag);
+    } else {
+      this.$router.replace('/404'); //router转发
+    }
+
+  }
 }
 </script>
 
