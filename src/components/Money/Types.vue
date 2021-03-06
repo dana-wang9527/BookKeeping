@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type==='-'&&'selected'"
+      <li :class="value==='-'&&'selected'"
           @click="selectorType('-')">支出
       </li>
-      <li :class="type==='+'&&'selected'"
+      <li :class="value==='+'&&'selected'"
           @click="selectorType('+')">收入
       </li>
     </ul>
@@ -18,8 +18,8 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Types extends Vue {
 
-  @Prop(String) readonly type!: string; //！表示不用管我有没有初始值
-//Prop告诉vue xxx不是data是props
+  @Prop(String) readonly value!: string; //！表示不用管我有没有初始值
+  //Prop告诉vue xxx不是data是props
   // String告诉vue type是运行时String
   //xxx属性名
   //string | undefined告诉TS xxx的类型
@@ -27,7 +27,7 @@ export default class Types extends Vue {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.$emit('update:value',type)
+    this.$emit('update:value', type);
   }
 }
 

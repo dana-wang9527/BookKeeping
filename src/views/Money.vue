@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="Layout"><!--    给组件传想要的类-->
     <NumberPads @submit="saveRecode" @update:value="updateNumber"/>
-    <Types :type.sync="recode.type"/>
+    <Types :value.sync="recode.type"/>
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
     </div>
