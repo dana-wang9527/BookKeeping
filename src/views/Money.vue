@@ -3,7 +3,7 @@
     <NumberPads @submit="saveRecode" @update:value="updateNumber"/>
     <Types :type.sync="recode.type"/>
     <div class="notes">
-    <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
+      <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
     </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
@@ -47,16 +47,12 @@ export default class Money extends Vue {
   }
 
   saveRecode() {
-    const recode2: recodeItem = recodeListModel.clone(this.recode);
-    recode2.createdAt = new Date();
-    this.recodeList.push(recode2);
-
-
+    recodeListModel.created(this.recode);
   }
 
   @Watch('recodeList')
   onRecodeListChanged() {
-    recodeListModel.save(this.recodeList);
+    recodeListModel.save();
   }
 
 }
@@ -67,7 +63,8 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes{
+
+.notes {
   padding: 12px 0;
 }
 
