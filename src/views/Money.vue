@@ -15,18 +15,17 @@ import NumberPads from '@/components/Money/NumberPads.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import tagListsModel from '@/models/tagList';
 import recodeListModel from '@/models/RecodeListModel';
 
 
 const recodeList = recodeListModel.fetch();
-const tagLists = tagListsModel.fetch();
+
 
 @Component({
   components: {FormItem, Types, NumberPads, Tags},
 })
 export default class Money extends Vue {
-  tags = tagLists;
+  tags = window.tagList;
   recodeList: recodeItem[] = recodeList;
   recode: recodeItem = {
     tags: [], notes: '', type: '-', amount: 0
