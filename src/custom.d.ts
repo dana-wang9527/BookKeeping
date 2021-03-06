@@ -26,4 +26,6 @@ interface Window {
     createTag: (name: string) => void;
     removeTag: (id: string) => boolean;
     updateTag: (id: string, name: string) => 'success' | 'not found' | 'duplicated';
+    recodeList: recodeItem[];
+    createRecode: (recode: recodeItem) => void;
 }

@@ -6,7 +6,8 @@ const recodeListModel = {
     created(recode: recodeItem) {
         const recode2: recodeItem = clone (recode);
         recode2.createdAt = new Date();
-        this.data.push(recode2);
+        this.data.push(recode2)
+        this.save()
     },
 
     fetch() {
