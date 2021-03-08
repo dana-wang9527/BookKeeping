@@ -5,7 +5,7 @@
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
     </div>
-    <Tags :data-source="tags"/>
+    <Tags/>
   </Layout>
 </template>
 <script lang="ts">
@@ -15,21 +15,23 @@ import NumberPads from '@/components/Money/NumberPads.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import {Component} from 'vue-property-decorator';
-import store from '@/store/index2';
+
 
 @Component({
   components: {FormItem, Types, NumberPads, Tags},
+  computed:{
+    recodeList() {
+      return this.$store.state.recodeList
+    }
+  }
 })
 export default class Money extends Vue {
-  tags = store.tagList;
-  recodeList = store.recodeList;
   recode: recodeItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
-
-  onUpdateTags(value: string[]) {
-    this.recode.tags = value;
+  created(){
+    this.$store.commit('fetchRecodes')
   }
 
   updateNotes(value: string) {
@@ -42,7 +44,7 @@ export default class Money extends Vue {
   }
 
   saveRecode() {
-    store.createRecode(this.recode);
+    this.$store.commit('createRecode',this.recode)
   }
 
 }
