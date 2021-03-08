@@ -19,19 +19,18 @@ import {Component} from 'vue-property-decorator';
 
 @Component({
   components: {FormItem, Types, NumberPads, Tags},
-  computed:{
-    recodeList() {
-      return this.$store.state.recodeList
-    }
-  }
 })
 export default class Money extends Vue {
+  get recodeList() {
+    return this.$store.state.recodeList;
+  }
+
   recode: recodeItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
-  created(){
-    this.$store.commit('fetchRecodes')
+  created() {
+    this.$store.commit('fetchRecodes');
   }
 
   updateNotes(value: string) {
@@ -44,7 +43,7 @@ export default class Money extends Vue {
   }
 
   saveRecode() {
-    this.$store.commit('createRecode',this.recode)
+    this.$store.commit('createRecode', this.recode);
   }
 
 }
