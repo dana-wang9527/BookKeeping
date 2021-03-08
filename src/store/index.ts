@@ -5,13 +5,21 @@ import createId from '@/lib/idCreator';
 
 
 Vue.use(Vuex);
-
+type RootStore = {
+    recodeList: recodeItem[];
+    tagList: Tag[];
+    currentTag?: Tag;
+}
 const newStore = new Vuex.Store({
     state: {
-        recodeList: [] as recodeItem[],
-        tagList: [] as Tag[]
-    },
+        recodeList: [],
+        tagList: [],
+        currentTag: undefined
+    } as RootStore,
     mutations: {
+        setCurrentTag(state,id: string){
+            state.currentTag=state.tagList.filter(t => t.id === id)[0]
+        },
         fetchRecodes: function (state) {
             state.recodeList = JSON.parse(window.localStorage.getItem('recodeList') || '[]');
         },
@@ -25,23 +33,23 @@ const newStore = new Vuex.Store({
             window.localStorage.setItem('recodeList', JSON.stringify(state.recodeList));
         },
         fetchTags(state) {
-            return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
         },
         createTag(state, name: string) {
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
                 window.alert('标签名重复了');
-                return 'duplicated';
+
             }
             const id = createId().toString();
             state.tagList.push({id: id, name: name});
             newStore.commit('saveTag');
             window.alert('添加成功');
-            return 'success';
+
         },
         saveTag(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
-        }
+        },
     },
 });
 
