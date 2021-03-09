@@ -1,7 +1,8 @@
 <template>
   <Layout class-prefix="Layout"><!--    给组件传想要的类-->
     <NumberPads @submit="saveRecode" @update:value="updateNumber"/>
-    <Types :value.sync="recode.type"/>
+    <Tabs :data-source="typeList"
+          :value.sync="recode.type"/>
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
     </div>
@@ -15,15 +16,19 @@ import NumberPads from '@/components/Money/NumberPads.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import {Component} from 'vue-property-decorator';
+import Tabs from '@/components/Tabs.vue';
+import typeList from '@/constants/typeList';
 
 
 @Component({
-  components: {FormItem, Types, NumberPads, Tags},
+  components: {Tabs, FormItem, Types, NumberPads, Tags},
 })
 export default class Money extends Vue {
   get recodeList() {
     return this.$store.state.recodeList;
   }
+
+  typeList = typeList;
 
   recode: recodeItem = {
     tags: [], notes: '', type: '-', amount: 0
