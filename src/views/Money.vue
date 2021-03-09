@@ -13,7 +13,6 @@
 import Vue from 'vue';
 import Tags from '@/components/Money/Tags.vue';
 import NumberPads from '@/components/Money/NumberPads.vue';
-import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
@@ -21,7 +20,7 @@ import typeList from '@/constants/typeList';
 
 
 @Component({
-  components: {Tabs, FormItem, Types, NumberPads, Tags},
+  components: {Tabs, FormItem, NumberPads, Tags},
 })
 export default class Money extends Vue {
   get recodeList() {
