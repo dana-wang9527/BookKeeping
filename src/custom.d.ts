@@ -1,10 +1,16 @@
+type RootStore = {
+    recodeList: recodeItem[];
+    tagList: Tag[];
+    currentTag?: Tag;
+}
+
 type recodeItem =
     {
         tags: string[];
         notes: string;
         type: string;
         amount: number;
-        createdAt?: Date; //？代表可以不存在
+        createdAt?: string; //？代表可以不存在
     }
 type Tag = {
     id: string;
