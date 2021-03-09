@@ -69,7 +69,7 @@ export default class Statistics extends Vue {
         result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
-    const x=result.map(group=>{
+    result.map(group=>{
       group.total=group.items.reduce((sum,item)=>sum+item.amount,0)
     })
     return result;
