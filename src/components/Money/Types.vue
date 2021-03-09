@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value==='-'&&'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix ,selected: value==='-',}"
           @click="selectorType('-')">支出
       </li>
-      <li :class="value==='+'&&'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix ,selected: value==='+',}"
           @click="selectorType('+')">收入
       </li>
     </ul>
@@ -17,7 +17,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-
+  @Prop(String) classPrefix?: string;
   @Prop(String) readonly value!: string; //！表示不用管我有没有初始值
   //Prop告诉vue xxx不是data是props
   // String告诉vue type是运行时String
