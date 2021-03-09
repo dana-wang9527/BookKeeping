@@ -40,7 +40,7 @@ import typeList from '@/constants/typeList';
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join();
+    return tags.length === 0 ? '无' : tags.join(',');
   }
 
   get recodeList() {
@@ -49,10 +49,10 @@ export default class Statistics extends Vue {
 
   get result() {
     const {recodeList} = this;
-    type HashTableValue = { title: string; items: RecodeList[] }
+    type HashTableValue = { title: string; items: recodeItem[] }
     const hashTable: { [key: string]: HashTableValue } = {};
     for (let i = 0; i < recodeList.length; i++) {
-      const [date] = recodeList[i].createdAt?.split('T');
+      const [date, time] = recodeList[i].createdAt!.split('T');
       hashTable[date] = hashTable[date] || {title: date, items: []};
       hashTable[date].items.push(recodeList[i]);
     }
