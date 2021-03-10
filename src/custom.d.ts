@@ -1,5 +1,7 @@
 type RootStore = {
     recodeList: recodeItem[];
+    createRecodeError: Error | null;
+    createTagError: Error | null;
     tagList: Tag[];
     currentTag?: Tag;
 }

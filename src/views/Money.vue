@@ -4,9 +4,10 @@
     <Tabs :data-source="typeList"
           :value.sync="recode.type"/>
     <div class="notes">
-      <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="updateNotes"/>
+      <FormItem field-name="备注" placeholder="在这里输入备注"
+                :value.sync="recode.notes"/>
     </div>
-    <Tags/>
+    <Tags @update:value="recode.tags=$event"/>
   </Layout>
 </template>
 <script lang="ts">
@@ -37,17 +38,23 @@ export default class Money extends Vue {
     this.$store.commit('fetchRecodes');
   }
 
-  updateNotes(value: string) {
-    this.recode.notes = value;
-  }
 
 
   updateNumber(value: string) {
     this.recode.amount = parseFloat(value);
+
   }
 
   saveRecode() {
+    if (!this.recode.tags || this.recode.tags.length === 0) {
+      return window.alert('请至少选择一个标签');
+    }
     this.$store.commit('createRecode', this.recode);
+    if (this.$store.state.createRecodeError === null) {
+      window.alert('已保存');
+      this.recode.notes = '';
+    }
+
   }
 
 }
