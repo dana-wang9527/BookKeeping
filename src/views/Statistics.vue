@@ -2,18 +2,18 @@
   <div>
     <Layout>
       <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
-        <ol>
-          <li v-for="(group,index) in groupedList" :key="index">
-            <h3 class="title">{{ beautify(group.title) }} <span>￥{{group.total}}</span></h3>
-            <ol>
-              <li v-for="item in group.items" :key="item.id" class="recode">
-                <span>{{ tagString(item.tags) }}</span>
-                <span class="notes">{{ item.notes }}</span>
-                <span>￥ {{ item.amount }}</span>
-              </li>
-            </ol>
-          </li>
-        </ol>
+      <ol>
+        <li v-for="(group,index) in groupedList" :key="index">
+          <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+          <ol>
+            <li v-for="item in group.items" :key="item.id" class="recode">
+              <span>{{ tagString(item.tags) }}</span>
+              <span class="notes">{{ item.notes }}</span>
+              <span>￥ {{ item.amount }}</span>
+            </li>
+          </ol>
+        </li>
+      </ol>
     </Layout>
   </div>
 
@@ -57,8 +57,10 @@ export default class Statistics extends Vue {
     const {recodeList} = this;
     if (recodeList.length === 0) return [];
 
-    const newList = clone(recodeList).filter(r=>r.type===this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-    type Result={title: string;total?: number;items: recodeItem[]}
+    const newList = clone(recodeList)
+        .filter(r => r.type === this.type)
+        .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    type Result = { title: string; total?: number; items: recodeItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
@@ -69,9 +71,9 @@ export default class Statistics extends Vue {
         result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
-    result.map(group=>{
-      group.total=group.items.reduce((sum,item)=>sum+item.amount,0)
-    })
+    result.map(group => {
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+    });
     return result;
   }
 
