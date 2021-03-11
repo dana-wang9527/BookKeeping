@@ -3,6 +3,12 @@
     <NumberPads @submit="saveRecode" @update:value="updateNumber"/>
     <Tabs :data-source="typeList"
           :value.sync="recode.type"/>
+    <div class="createdAt">
+      <FormItem field-name="日期"
+                type="date"
+                placeholder="在这里输入日期"
+                :value.sync="recode.createdAt"/>
+    </div>
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注"
                 :value.sync="recode.notes"/>
@@ -31,7 +37,7 @@ export default class Money extends Vue {
   typeList = typeList;
 
   recode: recodeItem = {
-    tags: [], notes: '', type: '-', amount: 0
+    tags: [], notes: '', type: '-', amount: 0,createdAt: new Date().toISOString()
   };
 
   created() {
