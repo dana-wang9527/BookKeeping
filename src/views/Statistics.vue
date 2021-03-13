@@ -82,7 +82,7 @@ export default class Statistics extends Vue {
         return -1;
       }
     });
-    return array
+    return array;
   }
 
 
@@ -98,6 +98,11 @@ export default class Statistics extends Vue {
       xAxis: {
         axisTick: {alignWithLabel: true},
         axisLine: {lineStyle: {color: '#666'}},
+        axisLabel: {
+          formatter: function (value: string) {
+            return value.substr(5);
+          }
+        },
         type: 'category',
         data: keys
       },
