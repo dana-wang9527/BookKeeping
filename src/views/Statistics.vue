@@ -2,7 +2,10 @@
   <div>
     <Layout>
       <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
-      <Chart :options="x"/>
+
+      <div class="chart-wrapper" ref="chartWrapper">
+        <Chart class="chart" :options="x"/>
+      </div>
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
@@ -41,6 +44,10 @@ export default class Statistics extends Vue {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
 
+  mounted() {
+    this.$refs.chartWrapper.scrollLeft = 9999;
+  }
+
   beautify(string: string) {
     const now = dayjs();
     if (dayjs(string).isSame(now, 'day')) {
@@ -53,9 +60,16 @@ export default class Statistics extends Vue {
       return dayjs(string).format('YYYY年M月D日');
     }
   }
+
   get x() {
     return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
       xAxis: {
+        axisTick: {alignWithLabel: true},
+        axisLine: {lineStyle: {color: '#666'}},
         type: 'category',
         data: [
           '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
@@ -64,9 +78,17 @@ export default class Statistics extends Vue {
         ]
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        show: false
       },
       series: [{
+        symbol: 'circle',
+        symbolSize: 12,
+        itemStyle: {
+          borderWidth: 1,
+          color: '#666',
+          borderColor: '#666'
+        },
         data: [
           820, 932, 901, 934, 1290, 1330, 1320,
           820, 932, 901, 934, 1290, 1330, 1320,
@@ -75,7 +97,12 @@ export default class Statistics extends Vue {
         ],
         type: 'line'
       }],
-      tooltip: {show: true}
+      tooltip: {
+        show: true,
+        triggerOn: 'click',
+        position:'top',
+        formatter: '{c}'
+      }
     };
   }
 
@@ -123,6 +150,7 @@ export default class Statistics extends Vue {
   max-width: 100%;
   height: 400px;
 }
+
 .no-Result {
   padding: 16px;
   text-align: center;
@@ -167,5 +195,17 @@ export default class Statistics extends Vue {
   margin-Right: auto;
   margin-left: 16px;
   color: #999;
+}
+
+.chart {
+  width: 430%;
+
+  &-wrapper {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>
