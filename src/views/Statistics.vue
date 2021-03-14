@@ -47,7 +47,7 @@ export default class Statistics extends Vue {
   }
 
   mounted() {
-    const div = this.$refs.chartWrapper;
+    const div = this.$refs.chartWrapper as HTMLDivElement;
     div.scrollLeft = div.scrollWidth;
   }
 
@@ -70,8 +70,8 @@ export default class Statistics extends Vue {
     for (let i = 0; i <= 30; i++) {
       const dateString = day(today)
           .subtract(i, 'day').format('YYYY-MM-DD');
-      const found = _.find(this.recodeList, {createdAt: dateString});
-      array.push({key: dateString, value: found ? found.amount : 0});
+      const found = _.find(this.groupedList, {title: dateString});
+      array.push({key: dateString, value: found ? found.total : 0});
     }
     array.sort((a, b) => {
       if (a.key > b.key) {
